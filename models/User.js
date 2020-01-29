@@ -1,21 +1,22 @@
 const Datastore = require("nedb-promise");
 const users = new Datastore({
-  filename: "./models/data/users.db",
+  filename: "./data/users.db",
   autoload: true
 });
+const bcrypt = require("bcryptjs");
 
-async function register(email, password, name, street, zip, city) {
-  const newUser = {
-    email: email,
-    password: password,
-    name: name,
-    adress: {
-      street: street,
-      zip: zip,
-      city: city
-    }
-  };
-  return await users.insert({ newUser });
-}
-
-module.exports = { register };
+module.exports = {
+  async register(body) {
+    const newUser = {
+      email: body.email,
+      password: await bcrypt(body.password, 10),
+      name: body.name,
+      adress: {
+        street: body.adress.street,
+        zip: body.adress.zip,
+        city: body.adress.city
+      }
+    };
+    return await users.insert(newUser);
+  }
+};
