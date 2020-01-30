@@ -42,11 +42,20 @@ module.exports = {
     } else {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        const payload = {
-          email: user.email,
-          password: user.password
-        };
         const secret = process.env.SECRET;
+        const payload = {
+          token: "token",
+          user: {
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            adress: {
+              street: user.adress.street,
+              city: user.adress.city,
+              zip: user.adress.zip
+            }
+          }
+        };
         const token = jwt.sign(payload, secret);
         return token;
       } else {

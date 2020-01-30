@@ -1,3 +1,1 @@
-{"email":"a@g.com","password":"$2a$10$yTp3ATqpD6WeHQKe248iAuibXmYYH53vjQ8luFgmrLNpVrvVupdpq","role":"customer","name":"a","adress":{"street":"a","zip":"a","city":"a"},"_id":"28BROU4rmau4wAa9"}
-{"email":"aleksander@gmail.com","password":"$2a$10$G3OoKFBPGdr08I9kXTDmOeWaT9SRyVY53pal8dUqWisuQWc3L7o3.","role":"customer","name":"Aleksander","adress":{"street":"kantatvägen 18","zip":"13140","city":"Nacka"},"_id":"c8dXzCS1aTkjQ8hp"}
-{"email":"h@g.com","password":"$2a$10$skq6BEJcbDBNy.raf.77Supru1NKetDnBLDo9SV0oMYBJZyCXmzUW","role":"customer","name":"h","adress":{"street":"h","zip":"h","city":"h"},"_id":"e0oEeL2TziX5DKWu"}
+{"email":"aleksander.dimitrijevic@gmail.com","password":"$2a$10$3Jr1A1WNDqRtSZnBP48eHe.MBZlebRgNbmM2NuqZHeUd9YEAbZUYS","role":"customer","name":"Aleksander Dimitrijevic","adress":{"street":"Kantatvägen 18","zip":"13140","city":"Nacka"},"_id":"N7qBhtikXvtQUYCs"}
