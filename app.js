@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/users");
-const productsRouter = require("./routes/products");
+
 app.use(express.static("public"));
 app.use(express.urlencoded());
 app.use(express.json());
 
-app.use("/register", userRoutes);
+app.use("/", userRoutes);
 // app.use("/", productsRouter);
 // app.get("/api/products", (req, res) => {
 //   res.json([
