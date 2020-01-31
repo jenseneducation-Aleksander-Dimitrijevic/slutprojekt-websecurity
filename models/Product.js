@@ -31,5 +31,10 @@ module.exports = {
   },
   async delete(id) {
     return await products.remove({ _id: id });
+  },
+  async update(id, body) {
+    let product = await products.findOne({ _id: id }, { $set: body });
+    product = await products.update(product, { $set: body });
+    return product;
   }
 };
