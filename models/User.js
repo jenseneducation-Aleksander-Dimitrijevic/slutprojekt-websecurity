@@ -20,7 +20,7 @@ module.exports = {
         const newUser = {
           email: body.email,
           password: passwordHash,
-          role: "admin",
+          role: "customer",
           name: body.name,
           adress: {
             street: body.adress.street,
@@ -44,8 +44,8 @@ module.exports = {
     } else {
       const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-        let payload = {
-          token: "JWT_TOKEN",
+        const payload = {
+          token: "token",
           user: {
             email: user.email,
             name: user.name,

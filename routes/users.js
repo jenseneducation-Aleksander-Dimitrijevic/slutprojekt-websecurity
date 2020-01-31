@@ -20,6 +20,8 @@ router.post("/api/auth", async (req, res) => {
   if (token) {
     res.json(verify);
     console.log(verify);
+  } else {
+    res.status(403).json({ message: "Not authorized" });
   }
 });
 
