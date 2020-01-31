@@ -1,1 +1,1 @@
-{"email":"aleksander.dimitrijevic@gmail.com","password":"$2a$10$3Jr1A1WNDqRtSZnBP48eHe.MBZlebRgNbmM2NuqZHeUd9YEAbZUYS","role":"customer","name":"Aleksander Dimitrijevic","adress":{"street":"Kantatvägen 18","zip":"13140","city":"Nacka"},"_id":"N7qBhtikXvtQUYCs"}
+{"email":"admin@gmail.com","password":"$2a$10$RhTYZ/js9n0kayU.HRLVFO1ZBOv6ntSP76G8Qpue3uYDqJ/BUG.mq","role":"admin","name":"admin","adress":{"street":"svängvägen 12","zip":"123 45","city":"Solna"},"_id":"FEZN0CnpmZGnOasI"}
