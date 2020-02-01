@@ -7,8 +7,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const secret = process.env.SECRET;
-
 module.exports = {
   async register(body) {
     if (body.password === body.repeatPassword) {
@@ -36,16 +34,20 @@ module.exports = {
   },
 
   async login(body) {
-    const user = await users.findOne({});
-    const email = body.email;
-    const password = body.password;
-    if (email !== user.email) {
+    const user = await users.findOne({ email: body.email });
+    if (!user) {
       return false;
     } else {
-      const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(body.password, user.password);
       if (isMatch) {
+        const secret = process.env.SECRET;
         const payload = {
-          token: "token",
+          userID: user.email,
+          role: user.role
+        };
+        const token = jwt.sign(payload, secret);
+        const authRespons = {
+          token: token,
           user: {
             email: user.email,
             name: user.name,
@@ -57,7 +59,7 @@ module.exports = {
             }
           }
         };
-        return jwt.sign(payload, secret);
+        return authRespons;
       } else {
         return false;
       }
