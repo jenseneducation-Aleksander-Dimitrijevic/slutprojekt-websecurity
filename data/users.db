@@ -1,2 +1,3 @@
-{"email":"elam@gmail.com","password":"$2a$10$.PL9dkeHDI3ofM3ee.JfZOa9u/xUMgE9PGAj8dqmRu.Az/wqY.ijG","role":"customer","name":"Elam","adress":{"street":"snättringevägen","zip":"123 45","city":"Nacka"},"_id":"YsmsLOfRqtOjDsbx"}
-{"email":"aleks@gmail.com","password":"$2a$10$eVHNF9ZWaWPm0F8gpJzsTOgvvP/LKEnEmE4qeqw13rVdjcIhS5auu","role":"admin","name":"Aleksander","adress":{"street":"kantatvägen","zip":"123 45","city":"Nacka"},"_id":"lXscKwvT9T3MH775"}
+{"email":"elam@gmail.com","password":"$2a$10$VIA3mMgyw3jyVu10ft.yZORtkZe3jekA0e/ZDGVCe8YQVWWGGSwKa","role":"customer","name":"elam","adress":{"street":"snorvägen 12","zip":"12345","city":"solna"},"_id":"MXDOJoAZfK08q1Qj"}
+{"email":"bettan@gmail.com","password":"$2a$10$/caRxF8wH/7jyGUFAMJuQ.mjNlfjfaXYLsuXhAGfc22Dke/vKciEG","role":"customer","name":"bettan","adress":{"street":"ridvägen","zip":"12345","city":"nacka"},"payment":{},"orderHistory":[],"_id":"dpNzQrlIA2sNvWee"}
+{"email":"aleks@gmail.com","password":"$2a$10$MkYlgtSGtj96nbU9Ri7DB.CeYKLB4GseQozKhWP9WEK2087bPuquy","role":"admin","name":"Aleksander","adress":{"street":"kantatvägen","zip":"12345","city":"nacka"},"_id":"gGbHcMaWdGuaKlmd"}

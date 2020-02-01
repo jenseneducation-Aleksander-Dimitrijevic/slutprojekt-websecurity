@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const router = new Router();
 const User = require("../models/User");
-const auth = require("./auth");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+const secret = process.env.SECRET;
 
 router.post("/api/register", async (req, res) => {
   const user = await User.register(req.body);
@@ -14,8 +16,8 @@ router.post("/api/register", async (req, res) => {
 });
 
 router.post("/api/auth", async (req, res) => {
-  const authUser = await User.login(req.body);
-  const verify = jwt.verify(authUser.token, process.env.SECRET);
+  const token = await User.login(req.body);
+  const verify = jwt.verify(token, secret);
   if (verify) {
     res.json(verify);
     console.log(verify);

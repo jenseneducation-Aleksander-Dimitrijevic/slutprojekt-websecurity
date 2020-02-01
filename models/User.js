@@ -7,6 +7,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+const secret = process.env.SECRET;
+
 module.exports = {
   async register(body) {
     if (body.password === body.repeatPassword) {
@@ -24,7 +26,14 @@ module.exports = {
             street: body.adress.street,
             zip: body.adress.zip,
             city: body.adress.city
-          }
+          },
+          payment: {
+            cardOwner: body.cardOwner,
+            cardNumber: body.cardNumber,
+            validUntil: body.validUntil,
+            cvv: body.cvv
+          },
+          orderHistory: []
         };
         return await users.insert(newUser);
       }
@@ -40,14 +49,8 @@ module.exports = {
     } else {
       const isMatch = await bcrypt.compare(body.password, user.password);
       if (isMatch) {
-        const secret = process.env.SECRET;
         const payload = {
-          userID: user.email,
-          role: user.role
-        };
-        const token = jwt.sign(payload, secret);
-        const authRespons = {
-          token: token,
+          token: "token",
           user: {
             email: user.email,
             name: user.name,
@@ -59,7 +62,8 @@ module.exports = {
             }
           }
         };
-        return authRespons;
+        const token = jwt.sign(payload, secret);
+        return token;
       } else {
         return false;
       }
