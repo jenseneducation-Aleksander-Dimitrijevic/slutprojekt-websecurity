@@ -28,12 +28,12 @@ module.exports = {
             city: body.adress.city
           },
           payment: {
-            cardOwner: body.cardOwner,
-            cardNumber: body.cardNumber,
-            validUntil: body.validUntil,
-            cvv: body.cvv
+            cardOwner: body.payment.cardOwner,
+            cardNumber: body.payment.cardNumber,
+            validUntil: body.payment.validUntil,
+            cvv: body.payment.cvv
           },
-          orderHistory: []
+          orderHistory: body.orderHistory
         };
         return await users.insert(newUser);
       }
@@ -42,7 +42,7 @@ module.exports = {
     }
   },
 
-  async login(body) {
+  async auth(body) {
     const user = await users.findOne({ email: body.email });
     if (!user) {
       return false;
@@ -50,7 +50,7 @@ module.exports = {
       const isMatch = await bcrypt.compare(body.password, user.password);
       if (isMatch) {
         const payload = {
-          token: "token",
+          token: "JWT_TOKEN",
           user: {
             email: user.email,
             name: user.name,

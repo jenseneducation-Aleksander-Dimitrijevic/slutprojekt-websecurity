@@ -8,9 +8,9 @@ router.get("/api/orders", async (req, res) => {
 });
 
 router.post("/api/orders", async (req, res) => {
-  const order = await Order.create(req.params.id, req.body);
+  const order = await Order.create(req.body);
   if (!order) {
-    res.json({ message: "Order not found" });
+    res.json(order);
   } else {
     res.json({ message: "Order created" });
   }

@@ -3,15 +3,14 @@ const orders = new Datastore({
   filename: "./data/orders.db",
   autoload: true
 });
-const user = require("../models/User");
 
 module.exports = {
-  async getOrders(id) {
-    return await orders.find({ _id: id });
+  async getOrders() {
+    return await orders.find({});
   },
-  async create(id, body) {
+  async create(body) {
     const newOrder = {
-      _id: id,
+      _id: body.id,
       timeStamp: Date.now(), // add server side
       status: "inProcess", // done
       items: body.items,
