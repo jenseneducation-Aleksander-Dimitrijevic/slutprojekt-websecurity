@@ -7,16 +7,22 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const secret = process.env.SECRET;
-
 module.exports = {
+  // async function that takes 1 parameter
+  /*
+    This function checks if password match the repeat password.
+    if not, the return false else continue creating user.
+  */
   async register(body) {
     if (body.password === body.repeatPassword) {
       const user = await users.findOne({ email: body.email });
       if (user) {
         return false;
       } else {
+        // use bcrypt to hash the entered password
         const passwordHash = await bcrypt.hash(body.password, 10);
+
+        // new user is created using an object
         const newUser = {
           email: body.email,
           password: passwordHash,
@@ -27,14 +33,9 @@ module.exports = {
             zip: body.adress.zip,
             city: body.adress.city
           },
-          payment: {
-            cardOwner: body.payment.cardOwner,
-            cardNumber: body.payment.cardNumber,
-            validUntil: body.payment.validUntil,
-            cvv: body.payment.cvv
-          },
-          orderHistory: body.orderHistory
+          orderHistory: []
         };
+        // insert object in database
         return await users.insert(newUser);
       }
     } else {
@@ -50,7 +51,12 @@ module.exports = {
       const isMatch = await bcrypt.compare(body.password, user.password);
       if (isMatch) {
         const payload = {
-          token: "JWT_TOKEN",
+          userID: user._id,
+          role: user.role
+        };
+        const token = jwt.sign(payload, process.env.SECRET);
+        return {
+          token: token,
           user: {
             email: user.email,
             name: user.name,
@@ -59,11 +65,10 @@ module.exports = {
               street: user.adress.street,
               city: user.adress.city,
               zip: user.adress.zip
-            }
+            },
+            orderHistory: user.orderHistory
           }
         };
-        const token = jwt.sign(payload, secret);
-        return token;
       } else {
         return false;
       }

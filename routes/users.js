@@ -1,24 +1,23 @@
 const { Router } = require("express");
 const router = new Router();
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const secret = process.env.SECRET;
 
 router.post("/api/register", async (req, res) => {
   const user = await User.register(req.body);
   if (user) {
     res.json(user);
   } else {
-    res.status(302).send("Something went wrong");
+    res.status(302).json({ message: "Something went wrong" });
   }
 });
 
 router.post("/api/auth", async (req, res) => {
-  const authUser = await User.auth(req.body);
-  const token = jwt.verify(authUser, secret);
-  if (token) res.json(token);
-  else res.json({ error: "Couldn't log you in" });
+  const token = await User.auth(req.body);
+  if (token) {
+    res.status(201).json(token);
+    console.log(token);
+  } else res.status(401).json({ error: "You are not authorized" });
 });
 
 module.exports = router;
