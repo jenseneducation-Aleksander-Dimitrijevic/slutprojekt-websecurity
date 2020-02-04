@@ -8,18 +8,14 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 module.exports = {
-  // async function that takes 1 parameter
-  /*
-    This function checks if password match the repeat password.
-    if not, the return false else continue creating user.
-  */
+  // store user in database
   async register(body) {
     if (body.password === body.repeatPassword) {
       const user = await users.findOne({ email: body.email });
       if (user) {
         return false;
       } else {
-        // use bcrypt to hash the entered password
+        // use bcrypt to hash user password
         const passwordHash = await bcrypt.hash(body.password, 10);
 
         // new user is created using an object
@@ -35,7 +31,8 @@ module.exports = {
           },
           orderHistory: []
         };
-        // insert object in database
+
+        // insert new user in database
         return await users.insert(newUser);
       }
     } else {
@@ -43,18 +40,28 @@ module.exports = {
     }
   },
 
+  // verify user during log in
   async auth(body) {
+    // check if email exist in database
     const user = await users.findOne({ email: body.email });
+
+    // return false if email doesn't exist in database
     if (!user) {
       return false;
     } else {
+      // use bcrypt to hash password
       const isMatch = await bcrypt.compare(body.password, user.password);
       if (isMatch) {
+        // payload for json web token
         const payload = {
           userID: user._id,
           role: user.role
         };
+
+        // create token
         const token = jwt.sign(payload, process.env.SECRET);
+
+        // return object containing user data and token
         return {
           token: token,
           user: {
