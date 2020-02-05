@@ -1,7 +1,6 @@
 const { Router } = require("express");
 const router = new Router();
 const Order = require("../models/Order");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const auth = require("./auth");
 
@@ -34,7 +33,7 @@ router.post("/", auth.auth, async (req, res) => {
     res.json(order);
   } catch (error) {
     // If any errors, catch error and send error message to client
-    res.status(401).json({ message: error });
+    res.status(200).json({ message: error });
   }
 });
 

@@ -4,11 +4,8 @@ const orders = new Datastore({
   filename: "./data/orders.db",
   autoload: true
 });
-const users = new Datastore({
-  filename: "./data/users.db",
-  autoload: true
-});
 
+const Product = require("./Product");
 module.exports = {
   // List all orders
   async getOrders() {
@@ -21,20 +18,21 @@ module.exports = {
   },
 
   // Create new order and attach it to specific user
-  async create(body, userID, id) {
-    let price = 0;
-    let chosenItems = orders.find({ _id: id }, { $in: body.items });
-
-    for (let i = 0; i < chosenItems.length; i++) {
-      price += chosenItems[i].price;
-    }
+  async create(body, userID) {
+    let value = 0;
+    const productPrice = body.items.forEach(async item => {
+      const itemObj = await Product.getOne(item);
+      let itemPrice = itemObj.price;
+      value += itemPrice;
+    });
+    console.log(value);
 
     const order = {
       owner: userID,
       timeStamp: Date.now(), // add server side
       status: "inProcess", // done
       items: body.items,
-      orderValue: price
+      orderValue: value
     };
     const newOrder = await orders.insert(order);
 
