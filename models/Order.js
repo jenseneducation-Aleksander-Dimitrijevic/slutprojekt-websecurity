@@ -21,13 +21,20 @@ module.exports = {
   },
 
   // Create new order and attach it to specific user
-  async create(body, userID) {
+  async create(body, userID, id) {
+    let price = 0;
+    let chosenItems = orders.find({ _id: id }, { $in: body.items });
+
+    for (let i = 0; i < chosenItems.length; i++) {
+      price += chosenItems[i].price;
+    }
+
     const order = {
       owner: userID,
       timeStamp: Date.now(), // add server side
       status: "inProcess", // done
       items: body.items,
-      orderValue: body.orderValue
+      orderValue: price
     };
     const newOrder = await orders.insert(order);
 

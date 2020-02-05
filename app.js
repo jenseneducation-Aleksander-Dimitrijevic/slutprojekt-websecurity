@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Handle resources using express middleware
 app.use("/", userRoutes);
-app.use("/", productRoutes);
-app.use("/", orderRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.listen(8080, () => console.log("Server started"));

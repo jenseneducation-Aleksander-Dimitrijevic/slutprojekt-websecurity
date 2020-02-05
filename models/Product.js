@@ -6,8 +6,8 @@ const products = new Datastore({
 
 // Insert products to database "products.db"
 
-// const productsArr = require("../products.json");
-// products.insert(productsArr);
+// const productsObj = require("../products.json");
+// products.insert(productsObj);
 
 module.exports = {
   // List all products
