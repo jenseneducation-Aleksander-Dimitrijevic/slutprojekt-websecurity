@@ -52,6 +52,9 @@ module.exports = {
       {
         $push: {
           orderHistory: newOrder._id
+        },
+        $set: {
+          payment: body.payment
         }
       }
     );
