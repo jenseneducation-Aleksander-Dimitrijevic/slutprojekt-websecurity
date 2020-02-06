@@ -80,5 +80,6 @@ module.exports = {
         return false;
       }
     }
-  }
+  },
+  users
 };

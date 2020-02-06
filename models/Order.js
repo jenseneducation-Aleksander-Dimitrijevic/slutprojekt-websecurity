@@ -6,6 +6,8 @@ const orders = new Datastore({
 });
 
 const Product = require("./Product");
+const usersDB = require("./User");
+
 module.exports = {
   // List all orders
   async getOrders() {
@@ -19,25 +21,31 @@ module.exports = {
 
   // Create new order and attach it to specific user
   async create(body, userID) {
-    let value = 0;
-    const productPrice = body.items.forEach(async item => {
-      const itemObj = await Product.getOne(item);
-      let itemPrice = itemObj.price;
-      value += itemPrice;
-    });
-    console.log(value);
+    // set total amount initially to value 0
+    let total = 0;
+
+    // create a variable that holds body.items which is an array
+    const itemsArray = body.items;
+
+    // Loop through array and retrieve price for each product
+    for (let item of itemsArray) {
+      let product = await Product.getOne(item);
+
+      // add price to total after each iteration
+      total += product.price;
+    }
 
     const order = {
       owner: userID,
       timeStamp: Date.now(), // add server side
       status: "inProcess", // done
       items: body.items,
-      orderValue: value
+      orderValue: total // set the total amount in orderValue
     };
     const newOrder = await orders.insert(order);
 
     // Insert order in array after inserting order into database
-    await users.update(
+    await usersDB.users.update(
       {
         _id: userID
       },
