@@ -6,7 +6,7 @@ const orders = new Datastore({
 });
 
 const Product = require("./Product");
-const usersDB = require("./User");
+const User = require("./User");
 
 module.exports = {
   // List all orders
@@ -44,16 +44,8 @@ module.exports = {
     };
     const newOrder = await orders.insert(order);
 
-    // Insert order in array after inserting order into database
-    await usersDB.users.update(
-      {
-        _id: userID
-      },
-      {
-        $push: {
-          orderHistory: newOrder._id
-        }
-      }
-    );
+    await User.storeUserPayments(userID, body.payment);
+    await User.updateUserOrder(userID, newOrder._id);
+    return newOrder;
   }
 };

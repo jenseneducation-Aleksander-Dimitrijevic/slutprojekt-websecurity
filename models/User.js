@@ -81,5 +81,18 @@ module.exports = {
       }
     }
   },
-  users
+  // create a function that take 2 parameters. Updating the user database and set the payment details
+  // to that specific user.
+  async storeUserPayments(userID, payment) {
+    return await users.update({ _id: userID }, { $set: { payment: payment } });
+  },
+
+  // create a function that take 2 parameters and updating the user order history.
+  // Push new order(s) into orderHistory array.
+  async updateUserOrder(userID, orderID) {
+    return await users.update(
+      { _id: userID },
+      { $push: { orderHistory: orderID } }
+    );
+  }
 };
